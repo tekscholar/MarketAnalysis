@@ -51,13 +51,11 @@ def download_image(image_url, title):
 def scrape_category(category_url, category_name):
     page_number = 1
     category_data = []
-    #while True:
     if True:
         page_url = f"{category_url}"
         page = requests.get(page_url)
         print("50",page_url)
         if page.status_code != 200:
-            #break  # No more pages
             return
         soup = BeautifulSoup(page.content, 'html.parser')
         books = soup.find_all('article', class_='product_pod')
@@ -67,7 +65,6 @@ def scrape_category(category_url, category_name):
             book_url = "https://books.toscrape.com/catalogue/" + book_link.replace('../../../', '')
             book_data = extract_book_data(book_url)
             category_data.append(book_data)
-            #print("60",len(category_data))
             download_image(book_data['image_url'], book_data['book_title'])
             print('.', end='')
         print()
