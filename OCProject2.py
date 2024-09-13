@@ -32,3 +32,44 @@ def extract_book_data(book_url):
         "review_rating": rating,
         "image_url": image_url
     }
+
+# Function to download the book's image
+def download_image(image_url, title):
+    response = requests.get(image_url)
+    if response.status_code == 200:
+        title = title.replace(':', '')  # delete ':', not valid in file name
+        title = title.replace('*', '')  # delete ':', not valid in file name
+        title = title.replace("'", '')  # delete ':', not valid in file name
+        title = title.replace("?", '')  # delete ':', not valid in file name
+
+
+        with open(f"images/{title.replace('/', '_')}.jpg", 'wb') as file:
+            file.write(response.content)
+
+# Function to scrape a single category and handle pagination
+def scrape_category(category_url, category_name):
+    page_number = 1
+    category_data = []
+    #while True:
+    if True:
+           #TEMPpage_url = f"{category_url}page-{page_number}.html"
+        page_url = f"{category_url}"
+        page = requests.get(page_url)
+        print("50",page_url)
+        if page.status_code != 200:
+            #break  # No more pages
+            return
+        soup = BeautifulSoup(page.content, 'html.parser')
+        books = soup.find_all('article', class_='product_pod')
+
+        for n, book in enumerate(books):
+            book_link = book.find('h3').find('a')['href']
+            book_url = "https://books.toscrape.com/catalogue/" + book_link.replace('../../../', '')
+            book_data = extract_book_data(book_url)
+            category_data.append(book_data)
+            #print("60",len(category_data))
+            download_image(book_data['image_url'], book_data['book_title'])
+            print('.', end='')
+        print()
+        page_number += 1
+        print('  68: # of books:', n+1)
