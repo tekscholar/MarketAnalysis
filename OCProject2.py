@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 #Welcome Code
 print("Welcome to BookScraper5000")
+
 # Function to extract book details from a single book page
 def extract_book_data(book_url):
     book_page = requests.get(book_url)
