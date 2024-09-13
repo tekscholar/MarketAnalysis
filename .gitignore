@@ -2,3 +2,4 @@ images/
 output/
 .idea/
 .gitattributes/
+env/ 
