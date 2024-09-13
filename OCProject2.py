@@ -41,6 +41,7 @@ def download_image(image_url, title):
         title = title.replace('*', '')  # delete ':', not valid in file name
         title = title.replace("'", '')  # delete ':', not valid in file name
         title = title.replace("?", '')  # delete ':', not valid in file name
+        title = title.replace('"', '')  # delete ':', not valid in file name
 
 
         with open(f"images/{title.replace('/', '_')}.jpg", 'wb') as file:
@@ -52,7 +53,6 @@ def scrape_category(category_url, category_name):
     category_data = []
     #while True:
     if True:
-           #TEMPpage_url = f"{category_url}page-{page_number}.html"
         page_url = f"{category_url}"
         page = requests.get(page_url)
         print("50",page_url)
@@ -101,7 +101,6 @@ def scrape_all_categories():
 
     # Find all categories
     categories = soup.find('ul', class_='nav-list').find('ul').find_all('a')
-    #TEMPfor category in categories:
     for n, category in enumerate(categories):
 
         category_name = category.text.strip()
