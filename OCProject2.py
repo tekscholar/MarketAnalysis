@@ -73,3 +73,43 @@ def scrape_category(category_url, category_name):
         print()
         page_number += 1
         print('  68: # of books:', n+1)
+
+    # Write category data to CSV
+    os.makedirs("output", exist_ok=True)
+    with open(f"output/{category_name}.csv", mode="w", newline='', encoding='utf-8') as csvfile:
+        fieldnames = [
+            "product_page_url",
+            "universal_product_code(UPC)",
+            "book_title",
+            "price_including_tax",
+            "price_excluding_tax",
+            "quantity_available",
+            "product_description",
+            "category",
+            "review_rating",
+            "image_url"
+        ]
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(category_data)
+
+# Function to scrape all categories
+def scrape_all_categories():
+    base_url = "https://books.toscrape.com/"
+    home_page = requests.get(base_url)
+    soup = BeautifulSoup(home_page.content, 'html.parser')
+
+    # Find all categories
+    categories = soup.find('ul', class_='nav-list').find('ul').find_all('a')
+    #TEMPfor category in categories:
+    for n, category in enumerate(categories):
+
+        category_name = category.text.strip()
+        category_url = base_url + category['href']
+        scrape_category(category_url, category_name)
+    print('102: # categoires:', n+1)
+
+if __name__ == "__main__":
+    os.makedirs("images", exist_ok=True)
+    scrape_all_categories()
+    print("Data extraction and image downloading completed successfully.")
