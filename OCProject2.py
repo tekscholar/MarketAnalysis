@@ -39,10 +39,10 @@ def download_image(image_url, title):
     response = requests.get(image_url)
     if response.status_code == 200:
         title = title.replace(':', '')  # delete ':', not valid in file name
-        title = title.replace('*', '')  # delete ':', not valid in file name
-        title = title.replace("'", '')  # delete ':', not valid in file name
-        title = title.replace("?", '')  # delete ':', not valid in file name
-        title = title.replace('"', '')  # delete ':', not valid in file name
+        title = title.replace('*', '')  # delete '*', not valid in file name
+        title = title.replace("'", '')  # delete "'", not valid in file name
+        title = title.replace("?", '')  # delete '?', not valid in file name
+        title = title.replace('"', '')  # delete '"', not valid in file name
 
 
         with open(f"images/{title.replace('/', '_')}.jpg", 'wb') as file:
@@ -104,7 +104,7 @@ def scrape_all_categories():
         category_name = category.text.strip()
         category_url = base_url + category['href']
         scrape_category(category_url, category_name)
-    print('102: # categoires:', n+1)
+    print('102: # categories:', n+1)
 
 if __name__ == "__main__":
     os.makedirs("images", exist_ok=True)
