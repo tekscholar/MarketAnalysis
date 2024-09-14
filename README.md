@@ -76,7 +76,7 @@ Step 3: Under **Python Interpreter**
   
 - **Specify Version**
   
-- Press **"Install Package" **
+- Press **Install Package**
 
 # Run Python Script 
 
@@ -92,9 +92,11 @@ Step 3: Under **Python Interpreter**
 
 **Instructions:**
 
-**Go to MarketAnalysis Folder** 
+Step 1: Go to **MarketAnalysis** repository folder 
 
-**To view exctracted book information .CSV Documents:**
+Step 2: View **extracted data** contents
+
+**To view extracted book information .CSV Documents:**
 
 -Click and Open **"output"** folder
 
